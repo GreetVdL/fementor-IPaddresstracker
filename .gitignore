@@ -3,6 +3,7 @@
 .env*
 .parcel-cache
 dist/
+fementor-IPaddresstracker.code-workspace
 
 # dependencies
 /node_modules
