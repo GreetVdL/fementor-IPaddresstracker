@@ -4,16 +4,120 @@
 @use "./base/fonts";
 @use "../icons/style.css";
 
+// base styles
+
 html {
   font-size: 62.5%;
+  font-family: "Rubik", sans-serif;
 }
 
-$oranje: orange;
-body {
-  margin: 10px;
+.container {
+  max-width: 1440px;
+  min-height: 100vh;
+  margin: 0 auto;
+  position: relative;
 }
-h1 {
-  color: $oranje;
-  font-size: 30px;
-  margin: 50px 0;
+
+// input field styles
+
+header {
+  height: 282px;
+  background-image: url("../images/pattern-bg.png");
 }
+
+form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  width: 570px;
+  margin: 0 auto;
+  label {
+    color: white;
+    font-size: 3rem;
+    font-weight: 500;
+    padding-top: 31px;
+    padding-bottom: 33px;
+  }
+  input {
+    height: 60px;
+    width: 498px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    border: none;
+    outline: none;
+    padding-left: 27px;
+    font-size: 1.8rem;
+    margin-left: -30px;
+    &::placeholder {
+      color: $grey;
+    }
+  }
+  button {
+    position: absolute;
+    top: 94px;
+    left: 520px;
+    width: 60px;
+    height: 60px;
+    background-color: black;
+    border: none;
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    cursor: pointer;
+    img {
+      margin-top: 3px;
+    }
+  }
+}
+
+// displayed info styles
+
+section {
+  position: absolute;
+  width: 1110px;
+  height: 162px;
+  background-color: white;
+  top: calc(282px - 81px);
+  left: calc(50% - 555px);
+  border-radius: 15px;
+  display: flex;
+  div {
+    width: 25%;
+    position: relative;
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3) {
+      &::after {
+        content: "";
+        position: absolute;
+        height: 75px;
+        border-left: 1px solid $grey;
+        right: 0;
+        top: 48px;
+      }
+    }
+    h2 {
+      color: $grey;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      font-size: 1.4rem;
+      padding: 41px 0 0 34px;
+    }
+    p {
+      font-size: 2.5rem;
+      font-weight: 500;
+      padding: 17px 34px 0 34px;
+    }
+  }
+}
+
+// map area styles
+
+main {
+  background-color: purple;
+  height: calc(100vh - 282px);
+}
+
+// TODO: responsive maken
+// responsive styles

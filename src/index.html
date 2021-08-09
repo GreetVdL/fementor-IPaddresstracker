@@ -4,19 +4,68 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <!-- <link href="" rel="shortcut icon" type="image/x-icon" /> -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | IP Address Tracker</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <!-- <style>
+      .attribution { font-size: 11px; text-align: center; }
+      .attribution a { color: hsl(228, 45%, 44%); }
+    </style> -->
   </head>
   <body>
     <include src="./symbol-defs.svg"></include>
-    <include src="./header.html"></include>
-    <h1>
-      Home<svg class="icon icon-shrink2">
-        <use href="#icon-shrink2" />
-      </svg>
-    </h1>
-    <div class="test"></div>
-    <include src="./footer.html"></include>
+    <div class="container">
+      <header>
+        <form action="">
+          <label for="inputfield">IP Address Tracker</label>
+          <input
+            id="inputfield"
+            type="text"
+            placeholder="Search for any IP address or domain"
+          />
+          <button type="submit">
+            <img src="./images/icon-arrow.svg" alt="arrow" />
+          </button>
+        </form>
+      </header>
+      <section>
+        <div>
+          <h2>IP Address</h2>
+          <p id="ip"></p>
+        </div>
+        <div>
+          <h2>Location</h2>
+          <p>
+            <span id="city"></span>
+            <span id="country"></span>
+            <br />
+            <span id="postal"></span>
+          </p>
+        </div>
+        <div>
+          <h2>Timezone</h2>
+          <p>UTC<span id="timezone"></span></p>
+        </div>
+        <div>
+          <h2>ISP</h2>
+          <p id="isp"></p>
+        </div>
+      </section>
+      <main></main>
+    </div>
+
+    <!-- <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>. 
+      Coded by <a href="#">Your Name Here</a>.
+    </div> -->
     <script src="./js/index.js"></script>
   </body>
 </html>
