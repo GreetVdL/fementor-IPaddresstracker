@@ -1,9 +1,8 @@
 import "../css/style.scss";
 import { Backend } from "./backend.js";
+import imageUrl from "url:../images/icon-location.svg";
 
 // console.log(process.env.SECRETMAPKEY);
-
-// IP address info
 
 const ipAddress = document.querySelector("#ip");
 const city = document.querySelector("#city");
@@ -17,13 +16,16 @@ const inputField = document.querySelector("input");
 
 let mymap;
 
+let myIcon = L.icon({
+  iconUrl: imageUrl,
+});
+
 const API = new Backend();
 API.setBaseUrl(
   `https://geo.ipify.org/api/v1?apiKey=${process.env.SECRETIPKEY}`
 );
 
 API.get("").then((data) => {
-  console.log(data);
   ipAddress.textContent = data.ip;
   city.textContent = data.location.city + ", ";
   country.textContent = data.location.country;
@@ -46,14 +48,13 @@ API.get("").then((data) => {
       accessToken: process.env.SECRETMAPKEY,
     }
   ).addTo(mymap);
-  let marker = L.marker([lat, long]).addTo(mymap);
+  let marker = L.marker([lat, long], { icon: myIcon }).addTo(mymap);
 });
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = inputField.value;
   API.get(`&domain=${input}`).then((data) => {
-    console.log(data);
     ipAddress.textContent = data.ip;
     city.textContent = data.location.city + ", ";
     country.textContent = data.location.country;
@@ -76,6 +77,6 @@ form.addEventListener("submit", function (event) {
         accessToken: process.env.SECRETMAPKEY,
       }
     ).addTo(mymap);
-    let marker = L.marker([lat, long]).addTo(mymap);
+    let marker = L.marker([lat, long], { icon: myIcon }).addTo(mymap);
   });
 });
