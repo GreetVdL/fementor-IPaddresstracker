@@ -117,6 +117,7 @@ section {
 main {
   background-color: purple;
   height: calc(100vh - 282px);
+  z-index: -1;
 }
 
 // TODO: responsive maken

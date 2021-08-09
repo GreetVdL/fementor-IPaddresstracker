@@ -1,7 +1,7 @@
 import "../css/style.scss";
 import { Backend } from "./backend.js";
 
-// console.log(process.env.SECRET);
+// console.log(process.env.SECRETMAPKEY);
 
 // IP address info
 
@@ -14,6 +14,8 @@ const isp = document.querySelector("#isp");
 
 const form = document.querySelector("form");
 const inputField = document.querySelector("input");
+
+let mymap;
 
 const API = new Backend();
 API.setBaseUrl(
@@ -28,6 +30,23 @@ API.get("").then((data) => {
   postal.textContent = data.location.postalCode;
   timezone.textContent = data.location.timezone;
   isp.textContent = data.isp;
+  const lat = data.location.lat;
+  const long = data.location.lng;
+  //   zoomControl set to false takes the zoom buttons away
+  mymap = L.map("mapid", { zoomControl: false }).setView([lat, long], 13);
+  L.tileLayer(
+    `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.SECRETMAPKEY}`,
+    {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: "mapbox/streets-v11",
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: process.env.SECRETMAPKEY,
+    }
+  ).addTo(mymap);
+  let marker = L.marker([lat, long]).addTo(mymap);
 });
 
 form.addEventListener("submit", function (event) {
@@ -41,5 +60,22 @@ form.addEventListener("submit", function (event) {
     postal.textContent = data.location.postalCode;
     timezone.textContent = data.location.timezone;
     isp.textContent = data.isp;
+    const lat = data.location.lat;
+    const long = data.location.lng;
+    mymap.remove();
+    mymap = L.map("mapid", { zoomControl: false }).setView([lat, long], 13);
+    L.tileLayer(
+      `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.SECRETMAPKEY}`,
+      {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken: process.env.SECRETMAPKEY,
+      }
+    ).addTo(mymap);
+    let marker = L.marker([lat, long]).addTo(mymap);
   });
 });
