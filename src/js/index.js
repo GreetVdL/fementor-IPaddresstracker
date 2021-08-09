@@ -55,6 +55,9 @@ form.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = inputField.value;
   API.get(`&domain=${input}`).then((data) => {
+    if (!data.ip) {
+      return;
+    }
     ipAddress.textContent = data.ip;
     city.textContent = data.location.city + ", ";
     country.textContent = data.location.country;
