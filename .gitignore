@@ -15,7 +15,6 @@ fementor-IPaddresstracker.code-workspace
 
 # next.js
 /.next/
-/out/
 
 # production
 /build
