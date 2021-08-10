@@ -20,9 +20,18 @@ let mymap;
 
 // map marker
 
-let myIcon = L.icon({
-  iconUrl: imageUrl,
-});
+let myIcon;
+
+if (window.innerWidth <= 826) {
+  myIcon = L.icon({
+    iconUrl: imageUrl,
+    iconSize: [23, 28],
+  });
+} else {
+  myIcon = L.icon({
+    iconUrl: imageUrl,
+  });
+}
 
 // Backend class instance
 
