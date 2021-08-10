@@ -162,6 +162,9 @@ main {
   header {
     height: 400px;
   }
+  main {
+    height: calc(100vh - 400px);
+  }
   section {
     width: 400px;
     height: 350px;
@@ -202,4 +205,72 @@ main {
 }
 
 @media screen and (max-width: 562px) {
+  form {
+    width: 460px;
+    label {
+      font-size: 2.5rem;
+    }
+    button {
+      top: 89px;
+      left: 400px;
+    }
+  }
+  header {
+    height: 360px;
+  }
+  main {
+    height: calc(100vh - 360px);
+  }
+  section {
+    width: 300px;
+    top: calc(360px - 175px);
+    left: calc(50% - 150px);
+  }
+}
+
+@media screen and (max-width: 518px) {
+  form {
+    width: 280px;
+    label {
+      font-size: 2.1rem;
+      padding-top: 25px;
+      padding-bottom: 25px;
+    }
+    input {
+      height: 45px;
+      padding-left: 15px;
+      font-size: 1.2rem;
+      width: calc(100% - 45px);
+    }
+    button {
+      top: 71px;
+      left: 235px;
+      width: 45px;
+      height: 45px;
+    }
+  }
+  header {
+    height: 268px;
+  }
+  main {
+    height: calc(100vh - 268px);
+  }
+  section {
+    width: 280px;
+    height: 260px;
+    top: calc(268px - 130px);
+    left: calc(50% - 140px);
+    div {
+      h2 {
+        font-size: 0.9rem;
+        padding: 0px 0 0 0px;
+        text-align: center;
+      }
+      p {
+        font-size: 1.5rem;
+        padding: 17px 0px 0 0px;
+        text-align: center;
+      }
+    }
+  }
 }
