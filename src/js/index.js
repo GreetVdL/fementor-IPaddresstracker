@@ -4,13 +4,6 @@ import imageUrl from "url:../images/icon-location.svg";
 
 // HTML elements
 
-const ipAddress = document.querySelector("#ip");
-const city = document.querySelector("#city");
-const country = document.querySelector("#country");
-const postal = document.querySelector("#postal");
-const timezone = document.querySelector("#timezone");
-const isp = document.querySelector("#isp");
-
 const form = document.querySelector("form");
 const inputField = document.querySelector("input");
 
@@ -20,15 +13,16 @@ let mymap;
 
 // map marker
 
-let myIcon;
+let markerIcon;
 
 if (window.innerWidth <= 826) {
-  myIcon = L.icon({
+  // smaller marker icon on smaller screens
+  markerIcon = L.icon({
     iconUrl: imageUrl,
     iconSize: [23, 28],
   });
 } else {
-  myIcon = L.icon({
+  markerIcon = L.icon({
     iconUrl: imageUrl,
   });
 }
@@ -42,9 +36,18 @@ API.setBaseUrl(
 
 // function to get and display IP and map API info
 
-function getData(endpoint) {
+function getAPIData(endpoint) {
+  // HTML elements
+  const ipAddress = document.querySelector("#ip");
+  const city = document.querySelector("#city");
+  const country = document.querySelector("#country");
+  const postal = document.querySelector("#postal");
+  const timezone = document.querySelector("#timezone");
+  const isp = document.querySelector("#isp");
+  // fetch API data
   try {
     API.get(endpoint).then((data) => {
+      // for a few seconds, show an error message when given incorrect IP address or domain input
       if (!data.ip) {
         inputField.value = "Incorrect IP address or domain";
         inputField.style.color = "red";
@@ -54,18 +57,23 @@ function getData(endpoint) {
         }, 2500);
         return;
       }
+      // display API data
       ipAddress.textContent = data.ip;
       city.textContent = data.location.city + ", ";
       country.textContent = data.location.country;
       postal.textContent = data.location.postalCode;
       timezone.textContent = data.location.timezone;
       isp.textContent = data.isp;
+      // location coordinates
       const lat = data.location.lat;
       const long = data.location.lng;
+      // if a map already exists, remove it so that a new map can be shown
       if (mymap) {
         mymap.remove();
       }
+      // show map
       mymap = L.map("mapid", {
+        // remove the zoom controls and attribution text from the map
         zoomControl: false,
         attributionControl: false,
       }).setView([lat, long], 13);
@@ -81,7 +89,8 @@ function getData(endpoint) {
           accessToken: process.env.SECRETMAPKEY,
         }
       ).addTo(mymap);
-      let marker = L.marker([lat, long], { icon: myIcon }).addTo(mymap);
+      // show marker icon
+      let marker = L.marker([lat, long], { icon: markerIcon }).addTo(mymap);
     });
   } catch (error) {
     console.log(error);
@@ -90,12 +99,12 @@ function getData(endpoint) {
 
 // Call function for page load; this will display the info related to the user's IP address
 
-getData("");
+getAPIData("");
 
 // Call the function with the user's input when submit button is pressed
 
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = inputField.value;
-  getData(`&domain=${input}`);
+  getAPIData(`&domain=${input}`);
 });

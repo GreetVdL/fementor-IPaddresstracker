@@ -46,6 +46,8 @@ form {
     width: calc(100% - 60px);
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
+    border-bottom-right-radius: none;
+    border-top-right-radius: none;
     border: none;
     outline: none;
     padding-left: 27px;
