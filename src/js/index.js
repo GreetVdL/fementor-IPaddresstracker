@@ -54,32 +54,42 @@ API.get("").then((data) => {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
   const input = inputField.value;
-  API.get(`&domain=${input}`).then((data) => {
-    if (!data.ip) {
-      return;
-    }
-    ipAddress.textContent = data.ip;
-    city.textContent = data.location.city + ", ";
-    country.textContent = data.location.country;
-    postal.textContent = data.location.postalCode;
-    timezone.textContent = data.location.timezone;
-    isp.textContent = data.isp;
-    const lat = data.location.lat;
-    const long = data.location.lng;
-    mymap.remove();
-    mymap = L.map("mapid", { zoomControl: false }).setView([lat, long], 13);
-    L.tileLayer(
-      `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.SECRETMAPKEY}`,
-      {
-        attribution:
-          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        maxZoom: 18,
-        id: "mapbox/streets-v11",
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: process.env.SECRETMAPKEY,
+  try {
+    API.get(`&domain=${input}`).then((data) => {
+      if (!data.ip) {
+        inputField.value = "Incorrect IP address or domain";
+        inputField.style.color = "red";
+        setTimeout(() => {
+          inputField.value = "";
+          inputField.style.color = "black";
+        }, 2500);
+        return;
       }
-    ).addTo(mymap);
-    let marker = L.marker([lat, long], { icon: myIcon }).addTo(mymap);
-  });
+      ipAddress.textContent = data.ip;
+      city.textContent = data.location.city + ", ";
+      country.textContent = data.location.country;
+      postal.textContent = data.location.postalCode;
+      timezone.textContent = data.location.timezone;
+      isp.textContent = data.isp;
+      const lat = data.location.lat;
+      const long = data.location.lng;
+      mymap.remove();
+      mymap = L.map("mapid", { zoomControl: false }).setView([lat, long], 13);
+      L.tileLayer(
+        `https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=${process.env.SECRETMAPKEY}`,
+        {
+          attribution:
+            'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+          maxZoom: 18,
+          id: "mapbox/streets-v11",
+          tileSize: 512,
+          zoomOffset: -1,
+          accessToken: process.env.SECRETMAPKEY,
+        }
+      ).addTo(mymap);
+      let marker = L.marker([lat, long], { icon: myIcon }).addTo(mymap);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
