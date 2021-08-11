@@ -46,8 +46,8 @@ form {
     width: calc(100% - 60px);
     border-bottom-left-radius: 15px;
     border-top-left-radius: 15px;
-    border-bottom-right-radius: none;
-    border-top-right-radius: none;
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
     border: none;
     outline: none;
     padding-left: 27px;
@@ -115,6 +115,13 @@ section {
       font-size: 2.5rem;
       font-weight: 500;
       padding: 17px 34px 0 34px;
+      // make sure text fits in the box
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      line-height: 2.5rem;
+      height: 9.2rem;
+      overflow: hidden;
     }
   }
 }
@@ -192,6 +199,7 @@ main {
         font-size: 1.8rem;
         padding: 17px 0px 0 0px;
         text-align: center;
+        height: auto;
       }
     }
   }
